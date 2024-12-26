@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<h2>主页</h2>
+<h2>你好<span sec:authentication="principal.nickname"></span>，欢迎访问 EasyGo 项目。</h2>
+
+<p><a th:href="@{/demo/list.html}">演示列表</a></p>
+
+<form method="post" th:action="@{/logout}">
+    <button class="btn btn-small btn-primary" type="submit">退出</button>
+</form>
+</body>
+</html>

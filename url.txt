@@ -1,0 +1,52 @@
+# 接口统计
+## 用户管理
+用户分页查询
+/user/page
+根据ID获取用户信息
+/user/{id}
+新增用户
+/user/add
+修改用户信息
+/user/update
+根据ID删除用户
+/user/delete/{id}
+重置用户密码
+/user/resetPassword/{id}
+查询用户角色列表
+/user/roles
+用户添加角色
+/user/addRole
+用户删除角色
+/user/deleteRole
+获取登录用户信息
+/user/current
+更新登录用户个人信息
+/user/updateCurrent
+修改登录用户密码
+/user/setPassword
+
+## 角色管理
+获取可用角色列表
+/role/list
+角色分页查询
+/role/page
+根据ID获取角色信息
+/role/{id}
+新增角色
+/role/add
+修改角色信息
+/role/update
+根据ID删除角色
+/role/delete/{id}
+查询角色用户列表
+/role/user/page
+
+## 字典管理
+字典类型分页查询
+/dict/type/page
+新增字典类型
+/dict/type/add
+修改字典类型信息
+/dict/type/update
+根据ID删除字典类型
+/dict/type/delete/{id}
