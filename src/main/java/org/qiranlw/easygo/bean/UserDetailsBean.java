@@ -14,6 +14,8 @@ public class UserDetailsBean implements UserDetails {
     private String username;
     private String nickname;
     private String password;
+    private Integer sex;
+    private String avatarUrl;
     private String email;
     private String telephone;
     private String description;
@@ -56,6 +58,22 @@ public class UserDetailsBean implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getEmail() {

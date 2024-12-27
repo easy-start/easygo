@@ -5,6 +5,10 @@ package org.qiranlw.easygo.bean;
  */
 public class RoleBean extends BasicBean {
 
+    public static int SYSTEM_ROLE_TYPE = 1;
+
+    public static int DISABLED_ROLE_STATUS = 0;
+
     private Long roleId;
 
     private String roleCode;

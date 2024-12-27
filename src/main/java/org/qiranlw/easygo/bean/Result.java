@@ -56,11 +56,11 @@ public class Result<T> {
     }
 
     public static <T> Result<T> error(String message) {
-        return new Result<>(ResultEnum.FAILED.getCode(), message, null);
+        return new Result<>(ResultEnum.SERVER_ERROR.getCode(), message, null);
     }
 
     public static <T> Result<T> error(String message, T data) {
-        return new Result<>(ResultEnum.FAILED.getCode(), message, data);
+        return new Result<>(ResultEnum.SERVER_ERROR.getCode(), message, data);
     }
 
     public static <T> Result<T> forbidden() {

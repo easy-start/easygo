@@ -31,7 +31,7 @@ public class PageBean<T> {
         this.list = list;
     }
 
-    public static <T> PageBean<T> create(int pageNum, int pageSize, int total, List<T> list) {
+    public static <T> PageBean<T> create(int pageNum, int pageSize, long total, List<T> list) {
         return new PageBean<>(pageNum, pageSize, total, list);
     }
 

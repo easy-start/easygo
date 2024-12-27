@@ -37,19 +37,19 @@ public class AopConfig {
         }
 
         CheckContainer checkContainer = method.getDeclaredAnnotation(CheckContainer.class);
-        List<Check> values = new ArrayList<>();
+        List<Check> checkList = new ArrayList<>();
         if (checkContainer != null) {
-            values.addAll(Arrays.asList(checkContainer.value()));
+            checkList.addAll(Arrays.asList(checkContainer.value()));
         } else {
             Check check = method.getDeclaredAnnotation(Check.class);
-            values.add(check);
+            checkList.add(check);
         }
         Map<String, Object> map = new HashMap<>(paramNames.length);
         for (int i=0;i<paramNames.length;i++) {
             map.put(paramNames[i], args[i]);
         }
-        Map<String, String> checkMap = new HashMap<>(values.size());
-        for (Check check : values) {
+        Map<String, String> checkMap = new HashMap<>(checkList.size());
+        for (Check check : checkList) {
             String key = check.key();
             if (checkMap.containsKey(key)) {
                 continue;

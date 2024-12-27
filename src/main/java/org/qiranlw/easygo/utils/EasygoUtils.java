@@ -1,7 +1,9 @@
 package org.qiranlw.easygo.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.qiranlw.easygo.bean.ResultEnum;
 import org.qiranlw.easygo.bean.UserDetailsBean;
+import org.qiranlw.easygo.exception.ServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -40,11 +42,11 @@ public class EasygoUtils {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         if (principal == null) {
-            return null;
+            throw new ServiceException(ResultEnum.UNAUTHORIZED);
         } else if (principal instanceof UserDetailsBean) {
             return (UserDetailsBean)principal;
         } else {
-            return null;
+            throw new ServiceException(ResultEnum.UNAUTHORIZED);
         }
     }
 

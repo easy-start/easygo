@@ -17,6 +17,8 @@ public class RoleForm extends PageForm {
 
     private String description;
 
+    private Long userId;
+
     public Long getRoleId() {
         return roleId;
     }
@@ -63,5 +65,13 @@ public class RoleForm extends PageForm {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

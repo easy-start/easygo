@@ -1,5 +1,7 @@
 package org.qiranlw.easygo.exception;
 
+import org.qiranlw.easygo.bean.ResultEnum;
+
 import java.util.Map;
 
 /**
@@ -10,7 +12,7 @@ public class MethodArgumentNotValidException extends ServiceException {
     private final Map<String, String> errors;
 
     public MethodArgumentNotValidException(Map<String, String> errors) {
-        super(510, "表单校验失败");
+        super(ResultEnum.FORM_ERROR);
         this.errors = errors;
     }
 

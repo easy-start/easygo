@@ -14,7 +14,9 @@ public class UserForm extends PageForm {
 
     private String nickname;
 
-    private String password;
+    private Integer sex;
+
+    private String avatarUrl;
 
     private String email;
 
@@ -25,6 +27,8 @@ public class UserForm extends PageForm {
     private String description;
 
     private Integer enabled;
+
+    private Integer locked;
 
     private Long roleId;
 
@@ -54,12 +58,20 @@ public class UserForm extends PageForm {
         this.nickname = nickname;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getSex() {
+        return sex;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getEmail() {
@@ -100,6 +112,14 @@ public class UserForm extends PageForm {
 
     public void setEnabled(Integer enabled) {
         this.enabled = enabled;
+    }
+
+    public Integer getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 
     public Long getRoleId() {

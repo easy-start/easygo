@@ -1,5 +1,7 @@
 package org.qiranlw.easygo.exception;
 
+import org.qiranlw.easygo.bean.ResultEnum;
+
 /**
  * @author qiranlw
  */
@@ -13,6 +15,12 @@ public class ServiceException extends RuntimeException {
         super(message);
         this.code = code;
         this.message = message;
+    }
+
+    public ServiceException(ResultEnum resultEnum) {
+        super(resultEnum.getMessage());
+        this.code = resultEnum.getCode();
+        this.message = resultEnum.getMessage();
     }
 
     public int getCode() {

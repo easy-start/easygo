@@ -7,6 +7,8 @@ import java.time.LocalDate;
  */
 public class UserBean extends BasicBean {
 
+    public static long DEFAULT_ROLE_ID = 1L;
+
     /**
      * 用户信息主键ID
      */
@@ -23,9 +25,19 @@ public class UserBean extends BasicBean {
     private String nickname;
 
     /**
+     * 密码
+     */
+    private String password;
+
+    /**
      * 性别
      */
     private Integer sex;
+
+    /**
+     * 头像URL
+     */
+    private String avatarUrl;
 
     /**
      * 电子邮件
@@ -91,12 +103,28 @@ public class UserBean extends BasicBean {
         this.nickname = nickname;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getSex() {
         return sex;
     }
 
     public void setSex(Integer sex) {
         this.sex = sex;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getEmail() {

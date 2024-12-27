@@ -13,14 +13,14 @@ import java.util.Map;
 @RestControllerAdvice
 public class EasygoRestExceptionHandler {
 
-    @ExceptionHandler(ServiceException.class)
-    public Result<String> bindServiceException(ServiceException e) {
-        return Result.error(e.getCode(), e.getMessage());
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<Map<String, String>> bindMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return Result.error(e.getCode(), e.getMessage(), e.getErrors());
+    }
+
+    @ExceptionHandler(ServiceException.class)
+    public Result<String> bindServiceException(ServiceException e) {
+        return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
