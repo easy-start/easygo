@@ -1,12 +1,11 @@
 package org.qiranlw.easygo.service;
 
-import org.qiranlw.easygo.bean.PageBean;
-import org.qiranlw.easygo.bean.ResultEnum;
-import org.qiranlw.easygo.bean.RoleBean;
-import org.qiranlw.easygo.bean.UserDetailsBean;
+import org.qiranlw.easygo.bean.*;
 import org.qiranlw.easygo.dao.RoleDao;
+import org.qiranlw.easygo.dao.UserDao;
 import org.qiranlw.easygo.exception.ServiceException;
 import org.qiranlw.easygo.form.RoleForm;
+import org.qiranlw.easygo.form.UserForm;
 import org.qiranlw.easygo.utils.EasygoUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,8 +18,11 @@ public class RoleService {
 
     private final RoleDao roleDao;
 
-    public RoleService(RoleDao roleDao) {
+    private final UserDao userDao;
+
+    public RoleService(RoleDao roleDao, UserDao userDao) {
         this.roleDao = roleDao;
+        this.userDao = userDao;
     }
 
     public PageBean<RoleBean> getRolePage(RoleForm form) {
@@ -35,7 +37,7 @@ public class RoleService {
         UserDetailsBean userData = EasygoUtils.getUserDetails();
         RoleBean bean = this.roleDao.selectByCode(form.getRoleCode());
         if (bean != null) {
-            throw new ServiceException(500, "角色编码已存在");
+            throw new ServiceException(ResultEnum.DATA_ALREADY_EXISTS.getCode(), "角色编码已存在");
         }
         RoleBean role = new RoleBean();
         role.setRoleCode(form.getRoleCode());
@@ -49,7 +51,8 @@ public class RoleService {
         if (roleId == null || roleId == 0) {
             throw new ServiceException(ResultEnum.DATA_SAVE_FAILED);
         }
-        return this.roleDao.selectById(roleId);
+        role.setRoleId(roleId);
+        return role;
     }
 
     public RoleBean updateRole(RoleForm form) {
@@ -91,7 +94,12 @@ public class RoleService {
         if (RoleBean.DISABLED_ROLE_STATUS == role.getStatus()) {
             throw new ServiceException(500, "请先禁用角色");
         }
-        // TODO 如果角色有关联用户无法删除角色
+        UserForm form = new UserForm();
+        form.setRoleId(roleId);
+        PageBean<UserBean> page = this.userDao.selectPageByParams(form);
+        if (page.total() > 0) {
+            throw new ServiceException(500, "仍然有用户关联该角色，无法删除");
+        }
         int ret = roleDao.deleteById(roleId);
         if (ret == 0) {
             throw new ServiceException(ResultEnum.DATA_UPDATE_FAILED);

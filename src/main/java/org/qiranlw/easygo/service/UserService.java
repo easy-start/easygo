@@ -70,7 +70,7 @@ public class UserService {
         UserDetailsBean userData = EasygoUtils.getUserDetails();
         UserBean user = this.userDao.selectByUsername(form.getUsername());
         if (user != null) {
-            throw new ServiceException(500, "登录名已存在");
+            throw new ServiceException(ResultEnum.DATA_ALREADY_EXISTS.getCode(), "登录名已存在");
         }
         LocalDateTime now = LocalDateTime.now();
         UserBean userInfo = new UserBean();
@@ -93,7 +93,7 @@ public class UserService {
         if (userId == null || userId == 0) {
             throw new ServiceException(ResultEnum.DATA_SAVE_FAILED);
         }
-        UserBean userBean = this.userDao.selectById(userId);
+        userInfo.setUserId(userId);
         UserRoleBean userRole = new UserRoleBean();
         userRole.setUserId(userId);
         userRole.setRoleId(UserBean.DEFAULT_ROLE_ID);
@@ -103,7 +103,7 @@ public class UserService {
         if (ret == 0) {
             // TODO 新增用户添加默认角色失败
         }
-        return userBean;
+        return userInfo;
     }
 
     /**

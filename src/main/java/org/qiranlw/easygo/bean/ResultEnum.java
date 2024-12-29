@@ -28,6 +28,7 @@ public enum ResultEnum {
     DATA_SAVE_FAILED(512, "保存数据失败"),
     DATA_UPDATE_FAILED(513, "数据更新失败"),
     DATA_DELETE_FAILED(514, "数据删除失败"),
+    DATA_ALREADY_EXISTS(515, "数据已存在"),
     UNPARSEABLE_RESPONSE_HEADERS(600, "没有返回响应头部");
 
     /**

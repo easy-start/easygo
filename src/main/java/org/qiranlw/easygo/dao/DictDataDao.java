@@ -46,8 +46,13 @@ public class DictDataDao extends BaseDao {
         return this.jdbcTemplate.queryForObject(QUERY_SQL + whereSql, DICT_DATA_ROW_MAPPER, dictDataId);
     }
 
+    public DictDataBean selectByCodeAndValue(DictDataForm form) {
+        String whereSql = " where t1.deleted = 0 and t1.type_code = ? and t1.data_value = ? ";
+        return this.jdbcTemplate.queryForObject(QUERY_SQL + whereSql, DICT_DATA_ROW_MAPPER, form.getTypeCode(), form.getDataValue());
+    }
+
     public List<DictDataBean> selectListByCode(String typeCode) {
-        String whereSql = " where t1.deleted = 0 and t1.type_code = ? and t1.status = 1 order by t1.data_sort asc ";
+        String whereSql = " where t1.deleted = 0 and t1.type_code = ? and t1.status = 1 order by t1.parent_value asc, t1.data_sort asc ";
         return this.jdbcTemplate.query(QUERY_SQL + whereSql, DICT_DATA_ROW_MAPPER, typeCode);
     }
 
@@ -55,14 +60,14 @@ public class DictDataDao extends BaseDao {
         StringBuilder whereSql = new StringBuilder(" where t1.deleted = 0 ");
         List<Object> params = new ArrayList<>();
         if (StringUtils.hasText(form.getTypeCode())) {
-            whereSql.append(" and t.type_code = ? ");
+            whereSql.append(" and t1.type_code = ? ");
             params.add(form.getTypeCode());
         }
         if (StringUtils.hasText(form.getDataLabel())) {
-            whereSql.append("and t.data_label like concat('%', ?, '%') ");
+            whereSql.append("and t1.data_label like concat('%', ?, '%') ");
             params.add(form.getDataLabel());
         }
-        whereSql.append(" order by t.data_sort asc ");
+        whereSql.append(" order by t1.parent_value asc, t1.data_sort asc ");
         return this.jdbcTemplate.query(QUERY_SQL + whereSql, DICT_DATA_ROW_MAPPER, params.toArray());
     }
 

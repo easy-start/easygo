@@ -11,6 +11,10 @@ public class DictTypeBean extends BasicBean implements Serializable {
     @Serial
     private static final long serialVersionUID = -4533272990117943495L;
 
+    public static final int DICT_TYPE_LIST = 1;
+
+    public static final int DICT_TYPE_TREE = 2;
+
     private Long dictTypeId;
 
     private String typeCode;

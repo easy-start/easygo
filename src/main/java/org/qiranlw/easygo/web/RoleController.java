@@ -45,7 +45,7 @@ public class RoleController {
     @PostMapping("/add")
     @Check(key = "roleCode", ex = "form.roleCode != nil && form.roleCode != ''", msg = "角色编码不能为空")
     @Check(key = "roleCode", ex = "form.roleCode != nil && form.roleCode != ''", msg = "角色编码不能为空")
-    @Check(key = "roleCode", ex = "form.roleCode ~= /^[a-zA-Z][a-zA-Z0-9_]{5, 15}$/", msg = "角色编码必须是6到16位英文数字，且以英文字母开头！")
+    @Check(key = "roleCode", ex = "form.roleCode ~= /^[a-zA-Z][a-zA-Z0-9_]{5, 15}$/", msg = "角色编码必须是6到16位英文数字，且以英文字母开头")
     @Check(key = "roleName", ex = "form.roleName != nil && form.roleName != ''", msg = "角色名称不能为空")
     @Check(key = "type", ex = "form.type != nil && form.type != ''", msg = "角色类型不能为空")
     @Check(key = "status", ex = "form.status != nil && form.status != ''", msg = "角色状态不能为空")
@@ -64,7 +64,7 @@ public class RoleController {
     }
 
     @PreAuthorize("hasRole('system')")
-    @DeleteMapping("/delete/{roleId}")
+    @DeleteMapping("/{roleId}")
     public Result<RoleBean> deleteRole(@PathVariable Long roleId) {
         return Result.success(this.roleService.deleteRole(roleId));
     }

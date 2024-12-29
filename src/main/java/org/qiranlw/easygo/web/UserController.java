@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('system')")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Result<UserBean> deleteUser(@PathVariable Long userId) {
         return Result.success(this.userService.deleteUser(userId));
     }
