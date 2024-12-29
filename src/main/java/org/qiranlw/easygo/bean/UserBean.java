@@ -1,13 +1,21 @@
 package org.qiranlw.easygo.bean;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * @author qiranlw
  */
-public class UserBean extends BasicBean {
+public class UserBean extends BasicBean implements Serializable {
 
-    public static long DEFAULT_ROLE_ID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1552828052445366531L;
+
+    /**
+     * 普通用户角色ID
+     */
+    public static long DEFAULT_ROLE_ID = 3;
 
     /**
      * 用户信息主键ID

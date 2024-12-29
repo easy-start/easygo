@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <style>
         body {
@@ -60,13 +61,6 @@
         <p>
             <label for="password" class="sr-only">密码</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
-        </p>
-        <p>
-            <label for="password" class="sr-only">验证码</label>
-            <input type="text" id="captcha" name="captcha" class="form-control" placeholder="验证码" required>
-        </p>
-        <p>
-            <img th:src="@{/captcha.jpg}" width="140" height="40" alt="captcha" onclick="this.src='/captcha.jpg?t='+Math.random()"/>
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
     </form>

@@ -1,53 +1,22 @@
 package org.qiranlw.easygo.bean;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
+ * @param pageNum  当前页数
+ * @param pageSize 分页大小
+ * @param total    数据总数
+ * @param list     当前页数据
  * @author qiranlw
  */
-public class PageBean<T> {
+public record PageBean<T>(int pageNum, int pageSize, long total, List<T> list) implements Serializable {
 
-    /**
-     * 当前页数
-     */
-    private final int pageNum;
-    /**
-     * 分页大小
-     */
-    private final int pageSize;
-    /**
-     * 数据总数
-     */
-    private final long total;
-    /**
-     * 当前页数据
-     */
-    private final List<T> list;
-
-    public PageBean(int pageNum, int pageSize, long total, List<T> list) {
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
-        this.total = total;
-        this.list = list;
-    }
+    @Serial
+    private static final long serialVersionUID = 6986935208333748699L;
 
     public static <T> PageBean<T> create(int pageNum, int pageSize, long total, List<T> list) {
         return new PageBean<>(pageNum, pageSize, total, list);
-    }
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public long getTotal() {
-        return total;
-    }
-
-    public List<T> getList() {
-        return list;
     }
 }

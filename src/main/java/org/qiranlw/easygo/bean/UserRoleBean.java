@@ -1,6 +1,15 @@
 package org.qiranlw.easygo.bean;
 
-public class UserRoleBean extends BasicBean {
+import java.io.Serial;
+import java.io.Serializable;
+
+/**
+ * @author qiranlw
+ */
+public class UserRoleBean extends BasicBean implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 5381647756700704106L;
 
     private Long userRoleId;
 

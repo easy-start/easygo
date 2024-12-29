@@ -3,12 +3,17 @@ package org.qiranlw.easygo.bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * @author qiranlw
  */
-public class UserDetailsBean implements UserDetails {
+public class UserDetailsBean implements UserDetails, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8580629340462806060L;
 
     private Long userId;
     private String username;

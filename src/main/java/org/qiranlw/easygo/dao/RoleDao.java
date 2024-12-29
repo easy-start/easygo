@@ -36,8 +36,8 @@ public class RoleDao extends BaseDao {
     select t1.role_id, t1.role_code, t1.role_name, t1.type, t1.status, t1.description, t1.create_user_id, t1.create_time,
     t1.update_user_id, t1.update_time, t2.nickname as create_user_name, t3.nickname as update_user_name
     from sys_role t1
-    left join sys_user t2 on t2.user_id = t.create_user_id and t2.deleted = 0
-    left join sys_user t3 on t3.user_id = t.update_user_id and t3.deleted = 0
+    left join sys_user t2 on t2.user_id = t1.create_user_id and t2.deleted = 0
+    left join sys_user t3 on t3.user_id = t1.update_user_id and t3.deleted = 0
     """;
 
     private static final String INSERT_SQL = """
@@ -79,6 +79,7 @@ public class RoleDao extends BaseDao {
             whereSql.append(" and t1.status = ? ");
             params.add(form.getStatus());
         }
+        whereSql.append(" order by t1.create_time desc ");
         if (params.isEmpty()) {
             return this.jdbcTemplate.query(sql.append(whereSql).toString(), RoleDao.ROLE_ROW_MAPPER);
         }
@@ -86,7 +87,7 @@ public class RoleDao extends BaseDao {
     }
 
     public PageBean<RoleBean> selectRolePageByParams(RoleForm form) {
-        StringBuilder countSql = new StringBuilder("select count(1) from sys_role t1 where t1.deleted = 0 ");
+        StringBuilder countSql = new StringBuilder("select count(1) from sys_role t1 ");
         StringBuilder whereSql = new StringBuilder(" where t1.deleted = 0 ");
         List<Object> params = new ArrayList<>();
         if (StringUtils.hasText(form.getRoleCode())) {
@@ -114,10 +115,10 @@ public class RoleDao extends BaseDao {
         if (total == null || total == 0) {
             return PageBean.create(form.getPageNum(), form.getPageSize(), 0, Collections.emptyList());
         }
+        whereSql.append("order by t1.create_time desc ");
         whereSql.append(" limit ? offset ? ");
         params.add(form.getPageSize());
         params.add(form.getStartNum());
-        whereSql.append("order by t1.create_time desc ");
         List<RoleBean> list = this.jdbcTemplate.query(QUERY_SQL + whereSql, RoleDao.ROLE_ROW_MAPPER, params.toArray());
         return PageBean.create(form.getPageNum(), form.getPageSize(), total, list);
     }

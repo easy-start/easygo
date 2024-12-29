@@ -34,8 +34,8 @@ public class UserDao extends BaseDao {
     t1.account_non_expired, t1.account_non_locked, t1.credentials_non_expired, t1.enabled, t1.create_user_id, t1.create_time,
     t1.update_user_id, t1.update_time, t2.nickname as create_user_name, t3.nickname as update_user_name
     from sys_user t1
-    left join sys_user t2 on t2.user_id = t.create_user_id and t2.deleted = 0
-    left join sys_user t3 on t3.user_id = t.update_user_id and t3.deleted = 0
+    left join sys_user t2 on t2.user_id = t1.create_user_id and t2.deleted = 0
+    left join sys_user t3 on t3.user_id = t1.update_user_id and t3.deleted = 0
     """;
 
     private static final String INSERT_SQL = """
@@ -60,8 +60,8 @@ public class UserDao extends BaseDao {
         StringBuilder whereSql = new StringBuilder(" where t1.deleted = 0 ");
         List<Object> params = new ArrayList<>();
         if (form.getRoleId() != null) {
-            countSql.append(" left join sys_user_role t4 on on t4.user_id = t1.user_id and t4.deleted = 0 ");
-            sql.append(" left join sys_user_role t4 on on t4.user_id = t1.user_id and t4.deleted = 0 ");
+            countSql.append(" left join sys_user_role t4 on t4.user_id = t1.user_id and t4.deleted = 0 ");
+            sql.append(" left join sys_user_role t4 on t4.user_id = t1.user_id and t4.deleted = 0 ");
             whereSql.append(" and t4.role_id = ? ");
             params.add(form.getRoleId());
         }
@@ -86,10 +86,10 @@ public class UserDao extends BaseDao {
         if (total == null || total == 0) {
             return PageBean.create(form.getPageNum(), form.getPageSize(), 0, Collections.emptyList());
         }
+        whereSql.append("order by t1.create_time desc ");
         whereSql.append(" limit ? offset ? ");
         params.add(form.getPageSize());
         params.add(form.getStartNum());
-        whereSql.append("order by t1.create_time desc ");
         List<UserBean> list = this.jdbcTemplate.query(sql.append(whereSql).toString(), UserDao.USER_ROW_MAPPER, params.toArray());
         return PageBean.create(form.getPageNum(), form.getPageSize(), total, list);
     }

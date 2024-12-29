@@ -1,11 +1,17 @@
 package org.qiranlw.easygo.bean;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * 用于向前端返回数据
  * @author qiranlw
  * @param <T>
  */
-public class Result<T> {
+public class Result<T> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -7237600264469877352L;
 
     private final int code;
     private final String message;

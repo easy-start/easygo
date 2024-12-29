@@ -44,7 +44,7 @@ public class UserRoleDao extends BaseDao {
     }
 
     public List<UserRoleBean> selectByUserId(Long userId) {
-        String sql = QUERY_SQL + " where t1.deleted = 0 and t3.status = 1 and t.user_id = ? ";
+        String sql = QUERY_SQL + " where t1.deleted = 0 and t3.status = 1 and t1.user_id = ? ";
         return jdbcTemplate.query(sql, UserRoleDao.USER_ROLE_ROW_MAPPER, userId);
     }
 
@@ -54,17 +54,17 @@ public class UserRoleDao extends BaseDao {
     }
 
     public int deleteById(Long userRoleId) {
-        String sql = "update sys_user_role set deleted = 1 where user_role_id = ? ";
+        String sql = "delete sys_user_role where user_role_id = ? ";
         return jdbcTemplate.update(sql, userRoleId);
     }
 
     public int deleteByUserRole(UserRoleBean userRole) {
-        String sql = "update sys_user_role set deleted = 1 where user_id = ? and role_id = ? and deleted = 0 ";
+        String sql = "delete sys_user_role where user_id = ? and role_id = ? ";
         return jdbcTemplate.update(sql, userRole.getUserId(), userRole.getRoleId());
     }
 
     public int deleteByUserId(Long userId) {
-        String sql = "update sys_user_role set deleted = 1 where user_id = ? and deleted = 0 ";
+        String sql = "delete sys_user_role where user_id = ? ";
         return jdbcTemplate.update(sql, userId);
     }
 }

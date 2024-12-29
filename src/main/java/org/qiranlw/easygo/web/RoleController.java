@@ -4,11 +4,8 @@ import org.qiranlw.easygo.annotation.Check;
 import org.qiranlw.easygo.bean.PageBean;
 import org.qiranlw.easygo.bean.Result;
 import org.qiranlw.easygo.bean.RoleBean;
-import org.qiranlw.easygo.bean.UserBean;
 import org.qiranlw.easygo.form.RoleForm;
-import org.qiranlw.easygo.form.UserForm;
 import org.qiranlw.easygo.service.RoleService;
-import org.qiranlw.easygo.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +20,8 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    private final UserService userService;
-
-    public RoleController(RoleService roleService, UserService userService) {
+    public RoleController(RoleService roleService) {
         this.roleService = roleService;
-        this.userService = userService;
     }
 
     @GetMapping("/list")
@@ -40,12 +34,6 @@ public class RoleController {
     @GetMapping("/page")
     public Result<PageBean<RoleBean>> getRolePage(RoleForm form) {
         return Result.success(this.roleService.getRolePage(form));
-    }
-
-    @GetMapping("/user/page")
-    @Check(key = "roleId", ex = "form.roleId != nil && form.roleId != ''", msg = "角色ID不能为空")
-    public Result<PageBean<UserBean>> getRoleUserPage(UserForm form) {
-        return Result.success(this.userService.getUserPage(form));
     }
 
     @GetMapping("/{roleId}")
